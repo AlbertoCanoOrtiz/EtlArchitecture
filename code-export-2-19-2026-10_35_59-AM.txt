@@ -1,0 +1,20 @@
+title cloud Deploment
+
+deploy[textSize:small, colorMode: pastel, styleMode: plain, color: blue]{
+    CloudFormation[icon:aws-cloudformation, textSize: medium ]
+    ObjectsStore[icon:aws-s3, textSize: medium]
+    AlternativeObjetivesStore[icon: github, textSize: medium ]
+    _Logs_[icon: aws-cloudwatch, textSize: medium]
+    Dev[icon: aws-account, textSize: medium]
+    Qa[icon: aws-account, textSize: medium]
+    Prod[icon: aws-account, textSize: medium]    
+  
+}
+
+CloudFormation > Dev
+CloudFormation > Qa
+CloudFormation > Prod
+
+CloudFormation < ObjectsStore
+CloudFormation <-- AlternativeObjetivesStore
+

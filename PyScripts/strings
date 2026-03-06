@@ -1,0 +1,33 @@
+#!/bin/bash
+
+docker run -it   -v /home/levy/Desktop/EtlArchitecture:/home/glue/scripts   public.ecr.aws/glue/aws-glue-libs:glue_libs_4.0.0_image_01
+
+export AWS_REGION=us-east-1
+
+
+docker run -d \
+  --name vinkos-data-engineer-mysql-container \
+  -e MYSQL_ROOT_PASSWORD=hola-123 \
+  -e MYSQL_DATABASE=standard \
+  -e MYSQL_USER=glue \
+  -e MYSQL_PASSWORD=hola-123 \
+  -v /home/levy/Desktop/EtlArchitecture/PyScripts/init.sql:/docker-entrypoint-initdb.d/init.sql \
+  -p 3306:3306 \
+  mysql:latest
+
+
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' vinkos-data-engineer-mysql-container
+
+/home/glue_user/spark/bin/spark-submit \
+  --jars /home/glue_user/aws-glue-libs/jars/*,/home/glue/scripts/PyScripts/mysql-connector-j-9.1.0.jar \
+  --driver-class-path /home/glue/scripts/PyScripts/mysql-connector-j-9.1.0.jar \
+  --py-files /home/glue_user/aws-glue-libs/PyGlue.zip \
+  /home/glue/scripts/PyScripts/vinkos-data-engineer-glue-visitor.py
+
+
+/home/glue_user/spark/bin/spark-submit \
+  --jars /home/glue_user/aws-glue-libs/jars/*,/home/glue/scripts/PyScripts/mysql-connector-j-9.1.0.jar \
+  --driver-class-path /home/glue/scripts/PyScripts/mysql-connector-j-9.1.0.jar \
+  --py-files /home/glue_user/aws-glue-libs/PyGlue.zip \
+  /home/glue/scripts/PyScripts/vinkos-data-engineer-glue-statistics.py 
+

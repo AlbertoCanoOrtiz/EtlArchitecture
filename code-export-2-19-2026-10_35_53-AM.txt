@@ -1,0 +1,57 @@
+title cloud solution
+
+Serverless_Solution[textSize: small, color: blue, colorMode: bold] {
+VPC[icon: aws-vpc, textSize: small] {
+
+    Lambda [icon: aws-lambda]
+    Mysql[icon: aws-rds]
+    Notifications[icon: aws-simple-notification-service]
+    Eventbridge[icon: aws-eventbridge]
+    SecretsStorage[icon: aws-secrets-manager]
+    logs[icon: aws-cloudwatch]
+    SegurityGroups[icon: aws-security-group]
+}
+
+clientserver[icon:cisco-server ]
+}
+
+Eventbridge > Lambda
+SecretsStorage > Lambda
+Lambda > clientserver
+Lambda > Mysql 
+
+Serverless_Bigdata_Solution[textSize: small, colorMode: bold, color: blue]{
+    _VPC[icon: aws-VPC, textSize: small]{
+    Glue[icon: aws-glue]
+    _SecretsStorage[icon: aws-secrets-manager]
+    _Mysql[icon: aws-rds]
+    _Logs[icon: aws-cloudwatch]
+    _Lambda_[icon: aws-lambda]
+    _Notifications_[icon: aws-simple-notification-service]
+    ParameterStorage[icon: aws-systems-manager]
+    TransferFamily[icon:aws-transfer-family]
+    S3[icon: aws-s3]
+    _SegurityGroup[icon: aws-security-group]
+    _Eventbridge[icon: aws-eventbridge]
+}
+ _clientserver_ [icon: cisco-server]
+}
+
+Glue < _SecretsStorage
+Glue > _Mysql
+TransferFamily > _clientserver_ 
+TransferFamily > S3
+Glue > S3
+_Eventbridge > Glue
+_Eventbridge >_Lambda_
+_Lambda_ > TransferFamily
+
+
+
+
+
+
+
+
+
+

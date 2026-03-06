@@ -1,0 +1,1 @@
+{ "url": "jdbc:mysql://172.17.0.4:3306/standard", "username": "glue", "password": "hola-123" }
